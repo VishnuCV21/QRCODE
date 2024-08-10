@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Assignment</title>
+</head>
+<body>
+    <h1>QR Code Generator</h1>
+    <form id="qr-form">
+        <input type="submit" value="Generate QR Code">
+    </form>
+    <div id="qrcode-container"></div>
+
+    <script>
+        document.getElementById('qr-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            try {
+                const response = await fetch('http://localhost:3000/generate-qrcode');
+                const data = await response.json();
+                const qrCodeContainer = document.getElementById('qrcode-container');
+                qrCodeContainer.innerHTML = `<img src="${data.qrCodeData}" alt="QR Code">`;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
